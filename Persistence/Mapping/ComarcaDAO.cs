@@ -1,14 +1,14 @@
 ﻿using Npgsql;
+using AC4.Persistence.DAO;
+using AC4.Persistence.Utils;
 
-using AC4;
-
-namespace dao.Persistence.Mapping
+namespace AC4.Persistence.Mapping
 {
     public class ComarcaDAO : IComarcaDAO
     {
         private readonly string connectionString;
 
-   
+
 
         public ComarcaDAO(string connectionString)
         {
@@ -22,9 +22,9 @@ namespace dao.Persistence.Mapping
 
             using (NpgsqlConnection connection = new NpgsqlConnection(NpgsqlUtils.OpenConnection()))
             {
-                string query = "SELECT \"Year\", \"CodiComarca\", \"NomComarca\", \"Poblacio\", \"DomesticXarxa\", " +
+                string query = "SELECT \"year\", \"CodiComarca\", \"NomComarca\", \"Poblacio\", \"DomesticXarxa\", " +
                                "\"ActivitatsEconomiques\", \"Total\", \"ConsumDomesticPerCapita\" " +
-                               "FROM \"Comarca\" WHERE \"CodiComarca\" = @CodiComarca";
+                               "FROM \"comarcas\" WHERE \"CodiComarca\" = @CodiComarca";
                 NpgsqlCommand command = new NpgsqlCommand(query, connection);
                 command.Parameters.AddWithValue("@CodiComarca", CodiComarca);
                 connection.Open();
@@ -43,7 +43,7 @@ namespace dao.Persistence.Mapping
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
-                string query = "INSERT INTO \"Comarca\" (\"Year\", \"CodiComarca\", \"NomComarca\", \"Poblacio\", \"DomesticXarxa\", \"ActivitatsEconomiques\", \"Total\", \"ConsumDomesticPerCapita\") " +
+                string query = "INSERT INTO \"comarcas\" (\"year\", \"codicomarca\", \"nomcomarca\", \"poblacio\", \"domesticxarxa\", \"activitatseconomiques\", \"total\", \"consumdomesticpercapita\") " +
                                "VALUES (@Year, @CodiComarca, @NomComarca, @Poblacio, @DomesticXarxa, @ActivitatsEconomiques, @Total, @ConsumDomesticPerCapita)";
                 NpgsqlCommand command = new NpgsqlCommand(query, connection);
                 command.Parameters.AddWithValue("@Year", comarca.Year);
@@ -63,10 +63,10 @@ namespace dao.Persistence.Mapping
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
-                string query = "UPDATE \"Comarca\" SET \"NomComarca\" = @NomComarca, \"Poblacio\" = @Poblacio, " +
+                string query = "UPDATE \"comarcas\" SET \"NomComarca\" = @NomComarca, \"Poblacio\" = @Poblacio, " +
                                "\"DomesticXarxa\" = @DomesticXarxa, \"ActivitatsEconomiques\" = @ActivitatsEconomiques, " +
                                "\"Total\" = @Total, \"ConsumDomesticPerCapita\" = @ConsumDomesticPerCapita " +
-                               "WHERE \"Year\" = @Year AND \"CodiComarca\" = @CodiComarca"; NpgsqlCommand command = new NpgsqlCommand(query, connection);
+                               "WHERE \"year\" = @Year AND \"CodiComarca\" = @CodiComarca"; NpgsqlCommand command = new NpgsqlCommand(query, connection);
                 command.Parameters.AddWithValue("@Year", comarca.Year);
                 command.Parameters.AddWithValue("@CodiComarca", comarca.CodiComarca);
                 command.Parameters.AddWithValue("@NomComarca", comarca.NomComarca);
@@ -84,7 +84,7 @@ namespace dao.Persistence.Mapping
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
-                string query = "DELETE FROM \"Comarca\" WHERE \"CodiComarca\" = @CodiComarca";
+                string query = "DELETE FROM \"comarcas\" WHERE \"CodiComarca\" = @CodiComarca";
                 NpgsqlCommand command = new NpgsqlCommand(query, connection);
                 command.Parameters.AddWithValue("@CodiComarca", CodiComarca);
                 connection.Open();
@@ -98,8 +98,8 @@ namespace dao.Persistence.Mapping
 
             using (NpgsqlConnection connection = new NpgsqlConnection(NpgsqlUtils.OpenConnection()))
             {
-                string query = "SELECT \"Year\", \"CodiComarca\", \"NomComarca\", \"Poblacio\", \"DomesticXarxa\", " +
-                               "\"ActivitatsEconomiques\", \"Total\", \"ConsumDomesticPerCapita\" FROM \"Comarca\""; NpgsqlCommand command = new NpgsqlCommand(query, connection);
+                string query = "SELECT \"year\", \"CodiComarca\", \"NomComarca\", \"Poblacio\", \"DomesticXarxa\", " +
+                               "\"ActivitatsEconomiques\", \"Total\", \"ConsumDomesticPerCapita\" FROM \"comarcas\""; NpgsqlCommand command = new NpgsqlCommand(query, connection);
                 connection.Open();
                 NpgsqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())

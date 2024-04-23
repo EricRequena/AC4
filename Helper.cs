@@ -10,9 +10,9 @@ namespace AC4
 {
     public class Helper
     {
-        public static List<Comarca> LlegirDadesCSV(string path)
+        public static List<ComarcaDTO> LlegirDadesCSV(string path)
         {
-            var comarques = new List<Comarca>();
+            var comarques = new List<ComarcaDTO>();
             using (var reader = new StreamReader(path))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
@@ -29,7 +29,7 @@ namespace AC4
                     var total = csv.GetField<int>("Total");
                     var consumDomesticPerCapita = csv.GetField<double>("Consum domèstic per càpita");
 
-                    var comarca = new Comarca
+                    var comarca = new ComarcaDTO
                     {
                         Year = Year,
                         CodiComarca = codiComarca,
@@ -104,7 +104,7 @@ namespace AC4
                 comboBox.SelectedIndex = 0;
         }
 
-        public static void AppendCsv(List<Comarca> comarcas)
+        public static void AppendCsv(List<ComarcaDTO> comarcas)
         {
             //en afegir registres, no cal afegir la capçalera
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)

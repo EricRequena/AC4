@@ -1,4 +1,4 @@
-﻿namespace AC4
+﻿namespace AC4.Persistence.DAO
 {
     public interface IComarcaDAO
     {

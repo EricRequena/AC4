@@ -1,4 +1,3 @@
-using AC4;
 using Npgsql;
 using NpgsqlTypes;
 using System;
@@ -10,14 +9,16 @@ using System.IO;
 using System.Linq;
 using Npgsql;
 using Npgsql;
-using dao.Persistence.Mapping;
+using AC4.Persistence.DAO;
+using AC4.Persistence.Mapping;
+using AC4.Persistence.Utils;
 
 namespace AC4
 {
     public partial class Form1 : Form
     {
         private int lineaActual = 0;
-        private List<Comarca> comarcas;
+        private List<ComarcaDTO> comarcas;
 
         public Form1()
         {
@@ -68,7 +69,7 @@ namespace AC4
             if (n != -1)
             {
                 DataGridViewRow row = Cuadro.Rows[n];
-                List<Comarca> comarcas = Helper.LlegirDadesCSV(@"..\..\..\Consum_d_aigua_a_Catalunya_per_comarques_20240402 (1).csv");
+                List<ComarcaDTO> comarcas = Helper.LlegirDadesCSV(@"..\..\..\Consum_d_aigua_a_Catalunya_per_comarques_20240402 (1).csv");
 
                 int poblacio = Convert.ToInt32(row.Cells[3].Value);
                 LBLPoblacio.Text = (poblacio > 20000) ? "SI" : "NO";
@@ -103,9 +104,9 @@ namespace AC4
         {
             if (this.ValidateChildren())
             {
-                List<Comarca> comarques = new List<Comarca>() {
+                List<ComarcaDTO> comarques = new List<ComarcaDTO>() {
 
-                    new Comarca
+                    new ComarcaDTO
                     {
                         Year = Convert.ToInt32(ComboBoxYear.Text),
                         CodiComarca = Convert.ToInt32(ComboBoxComarca.SelectedValue),

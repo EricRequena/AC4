@@ -2,7 +2,7 @@
 using Npgsql;
 
 
-namespace AC4
+namespace AC4.Persistence.Utils
 {
     public class NpgsqlUtils
     {
@@ -10,7 +10,7 @@ namespace AC4
         {
             // Carregar la cadena de connexió a la base de dades des de l'arxiu de configuració
             IConfiguration config = new ConfigurationBuilder()
-                .AddJsonFile(@"C:\Users\argo\Desktop\AC4\appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 
             return config.GetConnectionString("MyPostgresConn");
